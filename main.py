@@ -147,7 +147,7 @@ def initialize():
         aFmPixmap = QPixmap(os.path.join(sys._MEIPASS, "files/aFm.svg"))
     else:
         ui = uic.loadUi("ui.ui")
-        aFmPixmap = QPixmap('aFm.svg')
+        aFmPixmap = QPixmap("aFm.svg")
     ui.setFixedSize(500, 620)
     ui.setWindowTitle("Fizyczny kalkulator")
     ui.aFmPic.setPixmap(aFmPixmap)
