@@ -139,19 +139,44 @@ Masa ciała do którego nadali siłe w {aFmFValue}N i otrzymali przyspieszenie w
         print(e)
 
 
+def Qmg():
+    try:
+        QmgMText = ui.QmgMInp.text()
+        mt = toStp(ui.QmgMType.currentText())
+        QmgMValue = float(
+            QmgMText) * 10 ** -3 if mt == 0 else float(QmgMText) * (10 ** mt) * (10 ** -3)
+        QmgGText = ui.QmgGInp.text()
+        QmgGValue = float(QmgGText.replace(",", "."))
+        QmgQValue = str(QmgMValue*QmgGValue)
+        ansver = f'''Q = m * g
+
+Q = {QmgMValue} * {QmgGValue}
+Q = {QmgQValue}
+
+Odpowiedż: Q = {QmgQValue}
+'''
+        ui.QmgOutp.setText(ansver)
+    except Exception as e:
+        print(e)
+
+
 def initialize():
     global app, ui
     app = QtWidgets.QApplication([])
     if getattr(sys, 'frozen', False):
         ui = uic.loadUi(os.path.join(sys._MEIPASS, "files/ui.ui"))
         aFmPixmap = QPixmap(os.path.join(sys._MEIPASS, "files/aFm.svg"))
+        QmgPixmap = QPixmap(os.path.join(sys._MEIPASS, "files/Qmg.svg"))
     else:
         ui = uic.loadUi("ui.ui")
         aFmPixmap = QPixmap("aFm.svg")
+        QmgPixmap = QPixmap("Qmg.svg")
     ui.setFixedSize(500, 620)
     ui.setWindowTitle("Fizyczny kalkulator")
     ui.aFmPic.setPixmap(aFmPixmap)
+    ui.QmgPic.setPixmap(QmgPixmap)
     ui.aFmBtn.clicked.connect(aFm)
+    ui.QmgBtn.clicked.connect(Qmg)
     ui.show()
     app.exec()
 
