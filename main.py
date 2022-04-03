@@ -1,7 +1,9 @@
 from PyQt5 import QtWidgets, uic
 from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtGui import QPixmap
+import os
 import sys
+
 
 def toStp(r):
     n = r[:3]
@@ -31,6 +33,8 @@ def toStp(r):
     elif n == "[G":
         answer = 9
     return(answer)
+
+
 def aFm():
     nul = 0
     aFmFText = ui.aFmFInp.text()
@@ -51,9 +55,11 @@ def aFm():
     try:
         if not aFmFText:
             st = toStp(ui.aFmSType.currentText())
-            aFmSValue = float(aFmSText) if st == 0 else float(aFmSText) * (10 ** st)
+            aFmSValue = float(aFmSText) if st == 0 else float(
+                aFmSText) * (10 ** st)
             mt = toStp(ui.aFmMType.currentText())
-            aFmMValue = float(aFmMText) * 10 ** -3 if mt == 0 else float(aFmMText) * (10 ** mt) * (10 ** -3)
+            aFmMValue = float(
+                aFmMText) * 10 ** -3 if mt == 0 else float(aFmMText) * (10 ** mt) * (10 ** -3)
             aFmFValue = aFmSValue * aFmMValue
             answer = f'''          F
 a = ------
@@ -75,9 +81,11 @@ Siła potrebna pry masie w {aFmMValue}kg dla przyskorenia w {aFmSValue}m/s²:
             ui.aFmFInp.setText(str(aFmFValue))
         elif not aFmSText:
             ft = toStp(ui.aFmFType.currentText())
-            aFmFValue = float(aFmFText) if ft == 0 else float(aFmFText) * (10 ** ft)
+            aFmFValue = float(aFmFText) if ft == 0 else float(
+                aFmFText) * (10 ** ft)
             mt = toStp(ui.aFmMType.currentText())
-            aFmMValue = float(aFmMText) * 10 ** -3 if mt == 0 else float(aFmMText) * (10 ** mt) * 10 ** -3
+            aFmMValue = float(
+                aFmMText) * 10 ** -3 if mt == 0 else float(aFmMText) * (10 ** mt) * 10 ** -3
             aFmSValue = aFmFValue / aFmMValue
             answer = f'''          F
 a = ------
@@ -96,9 +104,11 @@ Pryspieszenie pry sile w {aFmFValue}N dla ciała z masią w {aFmMValue}kg będzi
             ui.aFmSInp.setText(str(aFmSValue))
         elif not aFmMText:
             ft = toStp(ui.aFmFType.currentText())
-            aFmFValue = float(aFmFText) if ft == 0 else float(aFmFText) * (10 ** ft)
+            aFmFValue = float(aFmFText) if ft == 0 else float(
+                aFmFText) * (10 ** ft)
             st = toStp(ui.aFmSType.currentText())
-            aFmSValue = float(aFmSText) if st == 0 else float(aFmSText) * (10 ** st)
+            aFmSValue = float(aFmSText) if st == 0 else float(
+                aFmSText) * (10 ** st)
             aFmMValue = (aFmFValue / aFmSValue)
             answer = f'''          F
 a = ------
@@ -128,6 +138,7 @@ Masa ciała do którego nadali siłe w {aFmFValue}N i otrzymali przyspieszenie w
     except Exception as e:
         print(e)
 
+
 def initialize():
     global app, ui
     app = QtWidgets.QApplication([])
@@ -143,6 +154,7 @@ def initialize():
     ui.aFmBtn.clicked.connect(aFm)
     ui.show()
     app.exec()
+
 
 if __name__ == "__main__":
     initialize()
